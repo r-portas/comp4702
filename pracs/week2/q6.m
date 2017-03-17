@@ -3,16 +3,18 @@
 function out = q6(in, n)
 
     out = [];
+    
+    chunks = length(in)/n;
 
-    for i = 1:length(in)
+    for i = 1:chunks
+        end_ind = length(in) - i * n + n;
 
-        x = 
+        start_ind = end_ind - n + 1;
+        start_ind = max([1, start_ind]);
 
-        % Get the bucket it belongs in
-        bucketNum = floor(i / n) + 1
+        temp = in(start_ind:end_ind);
 
+        out = [out, temp];
     end
-
-    buckets
 
 end

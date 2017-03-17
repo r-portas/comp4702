@@ -13,13 +13,15 @@ lower = 0;
 
 % Testing data
 test_x = (upper - lower) .* rand(num, 1) + lower;
-test_y = 2 * sin(1.5 * test_x);
-test_y = test_y + err;
+test_expected_y = 2 * sin(1.5 * test_x);
+test_y = test_expected_y + err;
 
 % Validation data
 validation_x = (upper - lower) .* rand(num, 1) + lower;
-validation_y = 2 * sin(1.5 * validation_x);
-validation_y = validation_y + err;
+validation_expected_y = 2 * sin(1.5 * validation_x);
+validation_y = validation_expected_y + err;
+
+figure;
 
 % Create the first plot
 subplot(4, 4, 1);
@@ -31,21 +33,38 @@ axis([0, 5, -5, 5]);
 title('Function and data');
 hold off;
 
+SSE_list = zeros(1, 10);
+
 % Do the lines of best fit
 for degree = 1:10
    subplot(4, 4, degree + 1);
    
    hold on;
-   % S contains the error
-   p = polyfit(test_x, test_y, degree);
-   y = polyval(p, x, S);
+   % TODO: Ask which to use
+   % p = polyfit(test_x, test_y, degree);
+   p = polyfit(validation_x, validation_y, degree);
+   y = polyval(p, x);
    plot(x, y);
    
-   r = (validation_y - y) .^ 2;
-   SSE = sum(r)
+   r = (validation_y - polyval(p, validation_x)) .^ 2;
+   SSE = sum(r);
+   SSE_list(degree) = SSE;
    
    scatter(validation_x, validation_y);
    axis([0, 5, -5, 5]);
-   title(sprintf('Degree %d line fit', degree));
+   title(sprintf('Degree %d line fit, %f', degree, SSE));
    hold off;
 end
+
+figure;
+
+% Plot the error over polynomial degrees
+
+hold on;
+
+bar(1:10, SSE_list);
+title('Error as a function of model order');
+xlabel('Polynomial degree');
+ylabel('SSE Error');
+hold off;
+
