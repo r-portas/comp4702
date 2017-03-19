@@ -30,14 +30,36 @@ function q4(data, class)
     class2_pdf = normpdf(x_values, class2_mle(1), class2_mle(2));
 
     % Verify the classes are divided
+    figure;
+
+    subplot(1, 2, 1);
     hold on;
     scatter(x_values, class1_data);
     scatter(x_values, class2_data);
+    legend('Iris Setosa', 'Iris Versicolor');
+    ylim([0, 10]);
+    hold off;
 
+    subplot(1, 2, 2);
+    hold on;
+    plot(class1_pdf, x_values);
+    plot(class2_pdf, x_values);
+    ylim([0, 10]);
+    hold off;
+    hold off;
+
+    % Plot the likelihood
+    figure;
+    hold on;
     plot(x_values, class1_pdf);
     plot(x_values, class2_pdf);
+    xlim([1, 10]);
 
-    legend('Iris Setosa', 'Iris Versicolor');
+    title('Likelihoods');
+    xlabel('x');
+    ylabel('P(x|C_i)');
+    
     hold off;
+
     
 end
