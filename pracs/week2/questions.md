@@ -1,10 +1,10 @@
 # Week 2 Prac Questions
 
-1) For a dataset of `n` attributes, how many unique scatterplots are on the draftman's display
+## 1) For a dataset of `n` attributes, how many unique scatterplots are on the draftman's display
 
 There will be `n^2` scatterplots
 
-2) Mystery Dataset
+## 2) Mystery Dataset
 
 The first column of the data is the date, the second column appears to be a
 unique ID for each entry.

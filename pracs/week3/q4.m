@@ -14,8 +14,11 @@ function q4(data, class)
     end
 
     % Verify the classes are correct
+    % figure;
+    % hold on;
     % scatter(1:length(class1), class1);
     % scatter(1:length(class2), class2);
+    % hold off;
 
     class1_data = data;
     class1_data(class2 == 1) = NaN;
@@ -28,6 +31,11 @@ function q4(data, class)
 
     class2_mle = mle(class2_data);
     class2_pdf = normpdf(x_values, class2_mle(1), class2_mle(2));
+
+
+    figure;
+
+    scatter(x_values, data);
 
     % Verify the classes are divided
     figure;
@@ -58,6 +66,16 @@ function q4(data, class)
     title('Likelihoods');
     xlabel('x');
     ylabel('P(x|C_i)');
+
+    p_class1 = class1_pdf ./ (class1_pdf + class2_pdf);
+    p_class2 = class2_pdf ./ (class1_pdf + class2_pdf);
+
+    figure;
+    hold on
+
+    plot(x_values, p_class1);
+    plot(x_values, p_class2);
+    xlim([1, 10]);
     
     hold off;
 
