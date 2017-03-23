@@ -66,35 +66,15 @@ function q4(data, class)
     ylabel('P(x|C_i)');
 
     p_class1 = class1_pdf ./ (class1_pdf + class2_pdf);
+    length(x_values)
     p_class2 = class2_pdf ./ (class1_pdf + class2_pdf);
 
     figure;
     hold on
 
-    plot(x_values, p_class1);
-    plot(x_values, p_class2);
-    xlim([1, 10]);
+    plot(estimate_range, p_class1);
+    plot(estimate_range, p_class2);
     
-    hold off;
-
-    % Get the posteriors
-    post_class1 = zeros(71, 1);
-    post_class2 = zeros(71, 1);
-
-    for i = 1:71
-        if class1_pdf(i) < class2_pdf(i) 
-            % Class 2 is bigger
-            post_class2(i) = 1;
-        else 
-            % Class 1 is bigger
-            post_class1(i) = 1;
-        end
-    end
-    figure;
-
-    hold on;
-    plot(1:71, post_class1);
-    plot(1:71, post_class1);
     hold off;
     
 end
