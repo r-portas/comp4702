@@ -35,9 +35,9 @@ function q4(data, class)
     class2_pdf = normpdf(estimate_range, class2_mle(1), class2_mle(2));
 
 
-    figure;
+    % figure;
 
-    scatter(x_values, data);
+    % scatter(x_values, data);
 
     % Verify the classes are divided
     figure;
@@ -66,7 +66,6 @@ function q4(data, class)
     ylabel('P(x|C_i)');
 
     p_class1 = class1_pdf ./ (class1_pdf + class2_pdf);
-    length(x_values)
     p_class2 = class2_pdf ./ (class1_pdf + class2_pdf);
 
     figure;
