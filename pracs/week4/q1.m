@@ -23,16 +23,18 @@ testing = data(500:end, :);
 covariance = cov(training);
 
 % Find the mean vector (mu)
-mean_vector = zeros(1, 8)
+mean_vector = zeros(1, 8);
 
 for i = 1:8
     mean_vector(i) = mean(training(:, i));
 end
 
+mean_vector = transpose(mean_vector);
+
 
 % Use the quadratic discriminant function (Eq. 5.9)
 p1 = 1 / ((2*pi)^(8/2) * sqrt(det(covariance)));
-p2 = exp(-1/2 * (training - mean_vector) * inv(covariance) * transpose(training - mean_vector));
+p2 = exp(-1/2 * transpose(training - mean_vector) * inv(covariance) * (training - mean_vector));
 
 p = p1 * p2;
 

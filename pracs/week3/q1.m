@@ -58,7 +58,7 @@ for degree = 1:9
    scatter(test_x, test_y, 'r');
    legend('Legend of Best Fit', 'Validation Data', 'Testing Data');
    axis([0, 5, -5, 5]);
-   title(sprintf('Degree %d line fit, %f', degree, SSE_val));
+   title(sprintf('Degree %d line fit, SSE: %f', degree, SSE_val));
    hold off;
 end
 

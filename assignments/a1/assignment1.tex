@@ -1,0 +1,70 @@
+\input{../include.tex}
+
+\title{Assignment 1, COMP4702}
+\author{Roy Portas}
+\date{\today}
+
+\begin{document}
+
+\begin{titlepage}
+    \maketitle
+\end{titlepage}
+
+\section*{Question 1.2}
+
+The first column of the data is the date, the second column appears to be a
+unique ID for each entry.
+
+The third column contains numbers between 25 and 30, this is possibly a
+temperature in degrees. The values also change gradually which seems correct
+for the given time intervals
+
+The fourth column contains numbers between 26 and around 50000. If this is
+plotted against the ID field, it produces a line.
+
+The fifth column contains numbers between 7.3 and 8.3, with a mean of 7.846 and
+a standard StdDev of 0.142. This suggests that the value doesn't change much.
+
+It could possibly be weather data, containing temperature, humidity, etc.
+
+\section*{Question 1.6}
+
+\lstinputlisting[language=Matlab]{../../pracs/week2/q6.m}
+
+\section*{Question 2.1}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week3/images/q1_lines_of_best_fit}
+    \centering
+    \caption{Lines of best fit}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week3/images/q1_err_vs_degree}
+    \centering
+    \caption{Error vs Polynomial Degree}
+\end{figure}
+
+\section*{Question 2.4}
+
+\lstinputlisting[language=Matlab]{../../pracs/week3/q4.m}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week3/images/q4_likelihoods}
+    \centering
+    \caption{Likelihoods}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week3/images/q4_posteriors}
+    \centering
+    \caption{Posteriors}
+\end{figure}
+
+\section*{Question 3.1}
+
+\section*{Question 3.2}
+
+\section*{Question 3.5}
+
+\end{document}

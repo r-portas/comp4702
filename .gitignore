@@ -11,3 +11,7 @@
 slprj/
 
 .DS_Store
+
+# Latex
+*.log
+*.aux

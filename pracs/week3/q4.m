@@ -73,6 +73,10 @@ function q4(data, class)
 
     plot(estimate_range, p_class1);
     plot(estimate_range, p_class2);
+
+    title('Posteriors');
+    xlabel('x');
+    ylabel('P(x|C_i)');
     
     hold off;
     
