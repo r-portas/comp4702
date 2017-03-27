@@ -12,18 +12,22 @@
 
 \section*{Question 1.2}
 
-The first column of the data is the date, the second column appears to be a
-unique ID for each entry.
+The first column of the data is a timestamp, with each value being around 30 minutes apart. The data starts at the first of January 2015 and ends in the last day of December.
+
+The second column appears to be a unique ID for each entry, as this number is never repeated and goes up by 1 for each record.
 
 The third column contains numbers between 25 and 30, this is possibly a
-temperature in degrees. The values also change gradually which seems correct
-for the given time intervals
+temperature in degrees. The values also change gradually which seems correct for the given time intervals. 
 
-The fourth column contains numbers between 26 and around 50000. If this is
-plotted against the ID field, it produces a line.
+Viewing data on the graph shows that the temperature is low at the start of the year and gradually climbs to it's max around 6 months in, then returns back to a lower temperature in December. This suggests that it is probably temperature measured in the northern hemisphere. Additionally this data has outliers, which is probably instrumentation error.
 
-The fifth column contains numbers between 7.3 and 8.3, with a mean of 7.846 and
-a standard StdDev of 0.142. This suggests that the value doesn't change much.
+The fourth column contains numbers between 26 and around 50000. If this is plotted against the date, it can be seen that there are three distinct dips in the data. Two of the dips are at the start of the year and the last is towards the end.
+
+The fifth column contains numbers between 7.3 and 8.3, with a mean of 7.846 and a standard StdDev of 0.142. This suggests that the value doesn't change much. Viewing the data over the date does not show any trends in the data.
+
+When the sixth column is plotted against the fifth column, a linear relationship can be seen, as the values in the sixth column increases when the values of the fifth column increases. This indicates there is some form of relationship between two sets of data.
+
+The last two columns don't provide much information, apart from increased outliers at the end of the year, suggesting that the sensors may be starting to fail.
 
 It could possibly be weather data, containing temperature, humidity, etc.
 
