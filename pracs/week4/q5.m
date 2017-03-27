@@ -27,6 +27,7 @@ h = edges(2) - edges(1);
 
 data = zeros(1, 100);
 
+% Histogram estimator
 for i = 1:100
     bin = ceil((x_points(i) - x0) / h);
     x_in_bin = dist(bin);
@@ -65,7 +66,6 @@ title('Mixed Model');
 legend('Data', 'Mixed model');
 hold off;
 
-
 subplot(2, 2, 4);
 hold on;
 hist(x, 20);
@@ -76,16 +76,22 @@ legend('Data', 'Test points');
 hold off;
 
 % Do the calculations
-KL(mixed, x, x_points);
-KL(mixed, K1, x_points);
-KL(mixed, K2, x_points);
+KL(mixed, data)
+KL(mixed, K1)
+KL(mixed, K2)
 
 %
 % Calculate the KL Divergence
 %
-function result = KL(p, q, x)
-    % Convert both to pdfs
-    px = normpdf(x, mean(p), std(p));
-    qx = normpdf(x, mean(q), std(q));
-    result = sum(px * log(px/qx));
+function result = KL(p, q)
+    result = zeros(size(p));
+
+    valid = p > 0 & q > 0;
+
+    result1 = sum(p(valid) .* log(p(valid) ./ q(valid)));
+    result2 = sum(q(valid) .* log(q(valid) ./ p(valid)));
+
+    result(valid) = result1 + result2;
+
+    result = mode(result);
 end

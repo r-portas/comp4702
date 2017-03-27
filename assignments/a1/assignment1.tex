@@ -45,6 +45,8 @@ It could possibly be weather data, containing temperature, humidity, etc.
     \caption{Error vs Polynomial Degree}
 \end{figure}
 
+The above figure shows that as more polynomial degrees are introduced the error on the testing data decreases, which is expected as this was the data the model was trained on. However the error on the validation data increases after the 7th polynomial, thus we are overfitting the data.
+
 \section*{Question 2.4}
 
 \lstinputlisting[language=Matlab]{../../pracs/week3/q4.m}
@@ -63,6 +65,16 @@ It could possibly be weather data, containing temperature, humidity, etc.
 
 \section*{Question 3.1}
 
+With the given dataset, we want to find a way to classify the two classes, this can be given by the posterior $P(C_i|x)$. To do so we first need to estimate the prior $P(C_i)$ and $p(x|C)$. This will allow us to estimate the proportion of data points for a given class $i$.  $p(x|c)$ can easily be found by using the matlab function \texttt{mvnpdf}.
+
+Finding the posteriors for each class yields the below histogram.
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week4/images/q1_posteriors}
+    \centering
+    \caption{Posteriors}
+\end{figure}
+
 \section*{Question 3.2}
 
 \section*{Question 3.5}
@@ -71,19 +83,23 @@ The computed KL values are listed in the table below
 \begin{center}
     \begin{tabular}{|c|c|c|}
         \hline
-        M and H1 & -1.1571 \\
-        M and K1 & -0.6840 \\
-        M and K2 &  1.2875 \\
+        M and H1 & 2.6898 \\
+        M and K1 & 0.2741  \\
+        M and K2 & 0.28186 \\
         \hline
     \end{tabular}
 \end{center}
 
-There was an issue encountered while finding these variables, it was caused by the 0 values in some of the bins of the histogram estimator, this was corrected by
+There was an issue encountered while finding these variables, it was caused by the 0 values in some of the bins of the histogram estimator, this caused the division to produce Infinity values. This was fixed by replacing the infinity values with 0.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{../../pracs/week4/images/q5}
     \centering
     \caption{Q5}
 \end{figure}
+
+Below is the code used to calculate the KL function, see the function called \texttt{KL} at the bottom of the script.
+
+\lstinputlisting[language=Matlab]{../../pracs/week4/q5.m}
 
 \end{document}

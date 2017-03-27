@@ -60,22 +60,35 @@ S2 = nancov(training_negative);
 p1 = sum(positive)/length(positive);
 p2 = sum(negative)/length(negative);
 
-res = qd(testing, S1, m1, p1);
-
 % Using mvnpdf
 pdf = mvnpdf(training, mean_vector, covariance);
+pdf_positive = mvnpdf(training_positive, m1, S1);
+pdf_negative = mvnpdf(training_negative, m2, S2);
+
+% Posteriors
+p_positive = pdf_positive ./ (pdf_positive + pdf_negative);
+p_positive(isnan(p_positive)) = 0;
+
+p_negative = pdf_negative ./ (pdf_positive + pdf_negative);
+p_negative(isnan(p_negative)) = 0;
+
+subplot(1, 2, 1);
+hold on;
+hist(pdf_positive);
+title('Positive Posterior Distribution');
+xlabel('P(c)');
+hold off;
+
+subplot(1, 2, 2);
+hold on;
+hist(pdf_negative);
+title('Negative Posterior Distribution');
+xlabel('P(c)');
+hold off;
 
 % Use built in matlab functions
 quadratic = fitcdiscr(training, training_actual, 'DiscrimType', 'quadratic');
 linear = fitcdiscr(training, training_actual);
 
-predict(quadratic, testing);
-predict(linear, testing);
-
-function g = qd(x, S, m, p)
-    % Equation 5.19
-    % g = -1/2 * log(det(S)) - 1/2 * (x - m) * inv(S) * transpose(x - m) + log(p);
-
-    % Equation 5.22
-    g = -1/2 * transpose(x - m) * inv(S) * (x - m) + log(p);
-end
+predict(quadratic, testing)
+predict(linear, testing)
