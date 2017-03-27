@@ -10,6 +10,7 @@ raw_data = raw(:, 1:8);
 % The classfied classes, e.g. positive or negative
 actual = table2array(raw(:, 9));
 training_actual = actual(1:500);
+testing_actual = actual(500:end);
 
 % Convert the table into an array
 data = table2array(raw_data);
@@ -35,6 +36,23 @@ for i = 1:500
         negative(i) = 1;
         training_negative(i, :) = training(i, :);
     end
+end
+
+positive = transpose(positive);
+negative = transpose(negative);
+
+
+pos_testing =  zeros(1, length(testing_actual));
+neg_testing =  zeros(1, length(testing_actual));
+
+% Parse the testing data
+for i = 1:length(testing_actual)
+    if strcmp(testing_actual(i), 'pos')
+        pos_testing(i) = 1;
+    else
+        neg_testing(i) = 1;
+    end
+    
 end
 
 % Find the covariance of the data
@@ -65,26 +83,27 @@ pdf = mvnpdf(training, mean_vector, covariance);
 pdf_positive = mvnpdf(training_positive, m1, S1);
 pdf_negative = mvnpdf(training_negative, m2, S2);
 
+% Remove the NaNs
+pdf_positive(isnan(pdf_positive)) = 0;
+pdf_negative(isnan(pdf_negative)) = 0;
+
 % Posteriors
 p_positive = pdf_positive ./ (pdf_positive + pdf_negative);
-p_positive(isnan(p_positive)) = 0;
 
 p_negative = pdf_negative ./ (pdf_positive + pdf_negative);
-p_negative(isnan(p_negative)) = 0;
 
-subplot(1, 2, 1);
 hold on;
-hist(pdf_positive);
-title('Positive Posterior Distribution');
-xlabel('P(c)');
+bar(1:500, p_positive, 'r');
+bar(1:500, p_negative, 'b');
+legend('Positive', 'Negative');
+xlim([1, 500]);
+xlabel('Reading no.');
+ylabel('P(c)');
+title('Posteriors');
 hold off;
 
-subplot(1, 2, 2);
-hold on;
-hist(pdf_negative);
-title('Negative Posterior Distribution');
-xlabel('P(c)');
-hold off;
+% Calculate the error
+
 
 % Use built in matlab functions
 quadratic = fitcdiscr(training, training_actual, 'DiscrimType', 'quadratic');

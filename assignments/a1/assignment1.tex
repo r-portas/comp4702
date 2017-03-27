@@ -71,7 +71,7 @@ The above figure shows that as more polynomial degrees are introduced the error 
 
 With the given dataset, we want to find a way to classify the two classes, this can be given by the posterior $P(C_i|x)$. To do so we first need to estimate the prior $P(C_i)$ and $p(x|C)$. This will allow us to estimate the proportion of data points for a given class $i$.  $p(x|c)$ can easily be found by using the matlab function \texttt{mvnpdf}.
 
-Finding the posteriors for each class yields the below histogram.
+Finding the posteriors for each class yields the below graph.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{../../pracs/week4/images/q1_posteriors}
@@ -79,7 +79,17 @@ Finding the posteriors for each class yields the below histogram.
     \caption{Posteriors}
 \end{figure}
 
+This shows the classification of the algorithm, visually we can see that there is more blue than red, meaning more people test negative to diabetes than positive, which makes sense when you look at the raw data.
+
+
+
 \section*{Question 3.2}
+
+
+LDA can be implemented similiar to the QDA done above.
+
+\lstinputlisting[language=Matlab]{../../pracs/week4/q2.m}
+
 
 \section*{Question 3.5}
 
