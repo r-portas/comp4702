@@ -109,5 +109,9 @@ hold off;
 quadratic = fitcdiscr(training, training_actual, 'DiscrimType', 'quadratic');
 linear = fitcdiscr(training, training_actual);
 
-predict(quadratic, testing)
+[c_training_quad, err_training_l] = predict(linear, training);
+[c_testing_quad, err_testing_l] = predict(linear, testing);
 predict(linear, testing)
+
+const = linear.Coeffs(1,2).Const
+linear = linear.Coeffs(1,2).Linear
