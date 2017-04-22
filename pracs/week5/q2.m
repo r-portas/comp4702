@@ -64,7 +64,9 @@ function dist = euclid_distance(point1, point2)
 end
 
 function new_points = step(points, x, y, z)
+    % Calibration factor (lambda)
     max_distance = 1.8;
+
     new_points = zeros(length(points), 2);
     for i = 1:length(points)
         point = points(i, :);

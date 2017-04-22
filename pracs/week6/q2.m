@@ -32,5 +32,8 @@ S = cov(data - m);
 
 % First principle component variance
 y(1)
+% > 5.11
+
 % Second principle component variance
 y(2)
+% > 3.74
