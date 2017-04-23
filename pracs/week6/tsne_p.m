@@ -1,4 +1,4 @@
-function ydata = tsne_p(P, labels, no_dims)
+function [ydata, iter_err] = tsne_p(P, labels, no_dims)
 %TSNE_P Performs symmetric t-SNE on affinity matrix P
 %
 %   mappedX = tsne_p(P, labels, no_dims)
@@ -60,6 +60,7 @@ function ydata = tsne_p(P, labels, no_dims)
     gains = ones(size(ydata));
 
     my_error = NaN(1, 31);
+    iter_err = zeros(1, max_iter);
     
     % Run the iterations
     for iter=1:max_iter
@@ -86,18 +87,21 @@ function ydata = tsne_p(P, labels, no_dims)
         if iter == mom_switch_iter
             momentum = final_momentum;
         end
-        if iter == stop_lying_iter && ~initial_solution
-            P = P ./ 4;
-        end
+        %if iter == stop_lying_iter && ~initial_solution
+        %    P = P ./ 4;
+        %end
         
         % Print out progress
         if ~rem(iter, 10)
             cost = const - sum(P(:) .* log(Q(:)));
             disp(['Iteration ' num2str(iter) ': error is ' num2str(cost)]);
         end
+
+        cost = const - sum(P(:) .* log(Q(:)));
+        iter_err(iter) = cost;
         
         % Display scatter plot (maximally first three dimensions)
-        if ~rem(iter, 10) && ~isempty(labels)
+        if ~rem(iter, 10) && ~isempty(labels) && false
             if no_dims == 1
                 scatter(ydata, ydata, 9, labels, 'filled');
             elseif no_dims == 2
