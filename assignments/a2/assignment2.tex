@@ -102,4 +102,21 @@ The first principle component accounts for 5.116\% of the data, whereas the seco
 
 \section*{Question 5.8}
 
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week6/images/q8}
+    \centering
+    \caption{Perplexity and Iterations on Cost}
+\end{figure}
+
+The perplexity determines how to balance the attention between local and global aspects of the dataset.
+The graph shows the error change on iterations, thus we should choose a perplexity the reduces the error as quickly as possible, such that the algorithm requires less iterations to find a good solution.
+A simple heuristic to choose a good perplexity would be to look for the greatest rate of change in the error, by inspecting the chart we can see that the lower perplexities have far greater rate of change.
+Further inspection showed that a perplexity value of 2 provided the best rate of change.
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week6/images/q8_p2}
+    \centering
+    \caption{Error on Perplexity}
+\end{figure}
+
 \end{document}
