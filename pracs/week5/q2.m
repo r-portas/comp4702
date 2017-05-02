@@ -71,16 +71,12 @@ function new_points = step(points, x, y, z)
     for i = 1:length(points)
         point = points(i, :);
 
-        within_range = zeros(length(points), 1);
-
         numerator = 0;
         denominator = 0;
 
         for j = 1:length(points)
             other_point = points(j, :);
             if euclid_distance(point, other_point) < max_distance
-                within_range(j) = 1;
-                % weight = interp2(x, y, z, other_point(1), other_point(2));
 
                 % Calculate part of sum
                 distance = euclid_distance(point, other_point);

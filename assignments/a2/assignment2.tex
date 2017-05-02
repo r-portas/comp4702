@@ -91,7 +91,7 @@ The first principle component accounts for 5.116\% of the data, whereas the seco
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{../../pracs/week6/images/q6_error}
     \centering
-    \caption{Error vs Iteration}
+    \caption{Error vs Iteration\label{fig:q6}}
 \end{figure}
 
 \begin{figure}[H]
@@ -113,10 +113,77 @@ The graph shows the error change on iterations, thus we should choose a perplexi
 A simple heuristic to choose a good perplexity would be to look for the greatest rate of change in the error, by inspecting the chart we can see that the lower perplexities have far greater rate of change.
 Further inspection showed that a perplexity value of 2 provided the best rate of change.
 
+This chart differs from the one in figure~\ref{fig:q6}, as the other chart as a large dip in the error at the 100 iteration mark.
+This is because of the lines that were commented out, as those lines introduce a larger momentum that decays over each iteration. Line 87-89 of \verb|tsne_p.m| tells t-SNE to stop lying about the p-values when it reaches the 100th iteration, which explains the massive drop in error.
+
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{../../pracs/week6/images/q8_p2}
     \centering
     \caption{Error on Perplexity}
 \end{figure}
+
+\section*{Question 6.3}
+
+Using the code generated from the \verb|nprtool|, the MNIST dataset can be easily loaded however there are various design choices that should be addressed.
+
+The first design choice is the network training function.
+I chose the \verb|trainscg| function as it does not require a line search on each iteration,
+which is described as a computationally intensive operation in the Matlab documentation.
+The Matlab describes the downside of adopting this function is it takes more iterations to converge than the other algorithms,
+but the speed increase is worth it.
+
+Another design parameter is the number of neurons in the hidden layers.
+The documentation for Scikit learn states the general rule of thumb for choosing values for the hidden layers is a value between the number of neurons in the input and output layers.
+As we are dealing with 784 input layers and 10 output layers, any value between those would work.
+To choose a suitable value, the network was trained against 15, 30, 45 and 60 hidden neurons, below is a chart showing the results.
+
+\begin{figure}
+  \begin{subfigure}[t]{.5\textwidth}
+    \centering
+	\includegraphics[width=\linewidth]{../../pracs/week7/images/15_hidden_neurons}
+	\caption{15 hidden neurons training}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.5\textwidth}
+    \centering
+	\includegraphics[width=\linewidth]{../../pracs/week7/images/30_hidden_neurons}
+	\caption{30 hidden neurons training}
+  \end{subfigure}
+
+  \medskip
+
+  \begin{subfigure}[t]{.5\textwidth}
+    \centering
+	\includegraphics[width=\linewidth]{../../pracs/week7/images/45_hidden_neurons}
+	\caption{45 hidden neurons training}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.5\textwidth}
+    \centering
+	\includegraphics[width=\linewidth]{../../pracs/week7/images/60_hidden_neurons}
+	\caption{60 hidden neurons training}
+  \end{subfigure}
+\end{figure}
+
+The results of the training was summarised into the following graph.
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week7/images/neurons_plot}
+    \centering
+    \caption{Number of Neurons vs Performance and Epochs}
+\end{figure}
+
+It can be seen that after 45 neurons, there are only marginal increases in performance, but the number of epochs until converging increases, thus increasing the running time of the program.
+Thus 60 neurons was selected.
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{../../pracs/week7/images/60_hidden_neurons_confusion}
+    \centering
+    \caption{60 hidden neurons confusion matrix}
+\end{figure}
+
+The above confusion matrix chart shows the error in the algorithm.
+The validation confusion matrix shows that the overall error is 3.9\%.
+This can be compared to Figure 9 in the paper ``Gradient-Based Learning Applied to Document Recognition'', which found the error rate to be 4.7\%. 
 
 \end{document}
