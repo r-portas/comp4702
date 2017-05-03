@@ -1,0 +1,4 @@
+pdflatex assignment2
+bibtex assignment2
+pdflatex assignment2
+pdflatex assignment2

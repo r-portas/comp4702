@@ -24,16 +24,16 @@ hold off;
 % What percentage of the variance is account by the first two components
 m = mean(data);
 S = cov(data - m);
-[evec, eval] = eigs(S);
+[evec, eval] = eig(S);
 
 % Sort the eigenvalues
 [y, i] = sort(diag(eval), 'descend');
 % Sort the eigenvectors columns by the eigenvalue indexes
 
 % First principle component variance
-y(1)
+y(1) / sum(y) * 100
 % > 5.11
 
 % Second principle component variance
-y(2)
+y(2) / sum(y) * 100
 % > 3.74

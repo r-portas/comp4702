@@ -16,7 +16,7 @@ e = [a; b; c];
 % plot(c(:, 1), c(:, 2), '*');
 
 % Use the first dataset
-data = e;
+data = d;
 
 
 figure;
@@ -45,17 +45,26 @@ hold off;
 copy = data;
 new_points = copy;
 
-for i = 1:5
-    new_points = step(new_points, x, y, z);
-    subplot(3, 2, i + 1);
+
+lambdas = [1.8, 3, 5];
+for j = 1:3
+
+    for i = 1:5
+        new_points = step(new_points, x, y, z, lambdas(j));
+        % ksdensity(data, 'PlotFcn', 'contour');
+    end
+    subplot(1, 3, j);
     hold on;
-    % ksdensity(data, 'PlotFcn', 'contour');
-    scatter(new_points(:, 1), new_points(:, 2));
-    title(sprintf('Step %d', i));
+    % Plot the data
+    plot(a(:, 1), a(:, 2), '+');
+    plot(b(:, 1), b(:, 2), 'o');
+    %plot(c(:, 1), c(:, 2), '*');
+
+    scatter(new_points(:, 1), new_points(:, 2), 'k', 'LineWidth', 3);
+    title(sprintf('Lambda %d', lambdas(j)));
     xlim([-10, 10]);
     ylim([-10, 10]);
     hold off;
-
 end
 
 
@@ -63,9 +72,9 @@ function dist = euclid_distance(point1, point2)
     dist = sqrt((point1(1) - point2(1))^2 + (point1(2) - point2(2))^2);
 end
 
-function new_points = step(points, x, y, z)
+function new_points = step(points, x, y, z, max_distance)
     % Calibration factor (lambda)
-    max_distance = 1.8;
+    % max_distance = 1.8;
 
     new_points = zeros(length(points), 2);
     for i = 1:length(points)

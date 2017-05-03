@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{ictdbid:2777}
+Laurens van~der Maaten and Geoffrey~E. Hinton.
+\newblock Visualizing high-dimensional data using t-sne.
+\newblock {\em Journal of Machine Learning Research}, 9:2579--2605, 2008.
+
+\bibitem{wattenberg2016how}
+Martin Wattenberg, Fernanda Viégas, and Ian Johnson.
+\newblock How to use t-sne effectively.
+\newblock {\em Distill}, 2016.
+
+\bibitem{lecun1998gradient}
+Yann LeCun, L{\'e}on Bottou, Yoshua Bengio, and Patrick Haffner.
+\newblock Gradient-based learning applied to document recognition.
+\newblock {\em Proceedings of the IEEE}, 86(11):2278--2324, 1998.
+
+\end{thebibliography}

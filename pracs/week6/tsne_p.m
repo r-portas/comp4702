@@ -101,7 +101,7 @@ function [ydata, iter_err] = tsne_p(P, labels, no_dims)
         iter_err(iter) = cost;
         
         % Display scatter plot (maximally first three dimensions)
-        if ~rem(iter, 10) && ~isempty(labels) && false
+        if ~rem(iter, 10) && ~isempty(labels)
             if no_dims == 1
                 scatter(ydata, ydata, 9, labels, 'filled');
             elseif no_dims == 2

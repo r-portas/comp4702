@@ -26,7 +26,7 @@ hiddenLayerSize = 20;
 net = patternnet(hiddenLayerSize, trainFcn);
 
 net.trainParam.epochs = 1000;
-net.trainParam.lr = 0.1;
+% net.trainParam.lr = 0.1;
 
 % Setup Division of Data for Training, Validation, Testing
 net.divideParam.trainRatio = 60/100;
