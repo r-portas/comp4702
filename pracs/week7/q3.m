@@ -4,12 +4,16 @@
 %
 
 load('mnist_train.mat');
+load('mnist_test.mat');
+
+all_labels = [train_labels; test_labels];
+all_X = [train_X; test_X];
 labels = [];
 for i = 1:10
-    labels = [labels, train_labels == i];
+    labels = [labels, all_labels == i];
 end
 
-x = transpose(train_X);
+x = transpose(all_X);
 t = transpose(labels);
 
 % Choose a Training Function
@@ -29,9 +33,10 @@ net.trainParam.epochs = 1000;
 % net.trainParam.lr = 0.1;
 
 % Setup Division of Data for Training, Validation, Testing
-net.divideParam.trainRatio = 60/100;
-net.divideParam.valRatio = 20/100;
-net.divideParam.testRatio = 20/100;
+net.divideParam.trainRatio = 5/7;
+net.divideParam.valRatio = 1/7;
+% 1/7 of the dataset is the testing data, which is at the end
+net.divideParam.testRatio = 1/7;
 
 % Train the Network
 [net,tr] = train(net,x,t);
@@ -55,3 +60,4 @@ figure, plotperform(tr)
 %figure, plotconfusion(t,y)
 %figure, plotroc(t,y)
 
+percentErrors

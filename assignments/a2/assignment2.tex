@@ -170,8 +170,30 @@ however as figure~\ref{fig:tsne} has a lower perplexity, it could be attempting 
 \section*{Question 6.3}
 
 Using the code generated from the \verb|nprtool|, the MNIST dataset can be easily loaded however there are various design choices that should be addressed.
+First is the separation of data into testing and training, which was done by using the given training and testing datasets from the MNIST data.
 
 The first design choice is the network training function, Matlab supports a lot of different training algorithms, such as gradient descent backpropagation, gradient descent with momentum and scaled gradient backpropagation.
+The accuracy for a training algorithm depends on a lot of things, including the dimensionality of the data, the size of the dataset and the complexity of the data.
+First we should look at the MNIST dataset and determine some of its traits, allowing us to make a judgement on what training algorithm to use.
+Below are the properties of the MNIST dataset:
+\begin{itemize}
+    \item 70000 data entries
+    \item 784 dimensions
+    \item 10 classes
+\end{itemize}
+
+The network structure for the mnist data is \verb|768-N-10|, where N is the number of hidden layers.
+The Matlab Neural Network Toolbox provides a tables of performance for different algorithms based on network structure.
+The closest network structure to the MNIST one is the Cholesterol dataset, which has a network structure of \verb|21-25-3|.
+This dataset has a large number of inputs relative to the outputs, which makes it similar to the MNIST dataset.
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{algorithm_comparison}
+    \centering
+    \caption{Comparison of algorithms from Matlab documentation\cite{matlabdocs}}
+\end{figure}
+
+From the table, it can be seen that the SCG algorithm was the best, which is the Scaled Gradient Backpropagation algorithm.
 
 I chose the scaled gradient backpropagation (\verb|trainscg|) function as it does not require a line search on each iteration,
 which is described as a computationally intensive operation in the Matlab documentation.
@@ -236,8 +258,11 @@ The above confusion matrix chart shows the error in the algorithm.
 The validation confusion matrix shows that the overall error is 3.9\%.
 
 This can be compared to Figure 9 in the paper ``Gradient-Based Learning Applied to Document Recognition''\cite{lecun1998gradient}, which found the error rate to be 4.7\%. 
-
 Its also worth noting the error on the training confusion matrix, which has by far the lowest error at 1.1\% which matches the blue line from part d in figure~\ref{fig:training_results}.
+
+\newpage
+\subsection*{Neural Network Code}
+\lstinputlisting[language=Matlab]{../../pracs/week7/q3.m}
 
 \bibliographystyle{unsrt}
 \bibliography{references}

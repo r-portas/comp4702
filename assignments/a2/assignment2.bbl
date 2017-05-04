@@ -10,6 +10,10 @@ Martin Wattenberg, Fernanda Viégas, and Ian Johnson.
 \newblock How to use t-sne effectively.
 \newblock {\em Distill}, 2016.
 
+\bibitem{matlabdocs}
+Choose a multilayer neural network training function - matlab, url:
+  https://au.mathworks.com/help/nnet/ug/choose-a-multilayer-neural-network-training-function.html.
+
 \bibitem{lecun1998gradient}
 Yann LeCun, L{\'e}on Bottou, Yoshua Bengio, and Patrick Haffner.
 \newblock Gradient-based learning applied to document recognition.
