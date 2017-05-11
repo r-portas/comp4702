@@ -1,0 +1,72 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMO -C 3.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+Relation:     pima_diabetes
+Instances:    768
+Attributes:   9
+              preg
+              plas
+              pres
+              skin
+              insu
+              mass
+              pedi
+              age
+              class
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: tested_negative, tested_positive
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+         1.5176 * (normalized) preg
+ +       5.3576 * (normalized) plas
+ +      -0.9666 * (normalized) pres
+ +      -0.2653 * (normalized) skin
+ +      -0.1335 * (normalized) insu
+ +       3.5722 * (normalized) mass
+ +       1.6528 * (normalized) pedi
+ +       0.2372 * (normalized) age
+ -       5.6848
+
+Number of kernel evaluations: 42521 (69.725% cached)
+
+
+
+Time taken to build model: 0.02 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         595               77.474  %
+Incorrectly Classified Instances       173               22.526  %
+Kappa statistic                          0.4747
+Mean absolute error                      0.2253
+Root mean squared error                  0.4746
+Relative absolute error                 49.5616 %
+Root relative squared error             99.5746 %
+Total Number of Instances              768     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.892    0.444    0.789      0.892    0.838      0.484    0.724     0.774     tested_negative
+                 0.556    0.108    0.734      0.556    0.633      0.484    0.724     0.563     tested_positive
+Weighted Avg.    0.775    0.327    0.770      0.775    0.766      0.484    0.724     0.701     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 446  54 |   a = tested_negative
+ 119 149 |   b = tested_positive
+
+
