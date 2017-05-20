@@ -1,0 +1,208 @@
+\input{../include.tex}
+\usepackage{mathtools}
+
+\title{Assignment 3, COMP4702}
+\author{Roy Portas, 43560846}
+\date{\today}
+
+\begin{document}
+
+\begin{titlepage}
+    \maketitle
+\end{titlepage}
+
+\section*{Prac 7}
+
+\subsection*{Q 7.1}
+
+\subsubsection*{Part A}
+
+The network topology that was used is Prac 6 is a 60 unit neural network with one hidden layer.
+Five different methods were compared, with learning rates ranging from 0.001 to 10.
+For this test 100 was chosen as the maximum steps, 
+this is relatively small but increasing the maximum steps should only make the model more accurate.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{images/q7_optimisers}
+\end{figure}
+
+The above figure shows a comparison of different methods with different learning rates.
+It can be seen that RMSProp and Adam run much better with smaller learning rates, with Adam slightly outperforming RMSProp.
+
+Gradient Descent and Momentum work better with higher learning rates, peaking with a learning rate of 1, with Gradient Descent performing the best of the two.
+
+Adagrad performs the best with a learning rate of 0.1, however does not perform well with higher or lower values, whereas all the other methods work well for multiple learning rates.
+
+All the algorithms start performing poorly when the learning rate increases past 1. The best performing algorithm was RMSProp with a learning rate of 0.01, with an accuracy of 0.9182.
+
+\subsubsection*{Part B}
+
+The Adam method was chosen for question with a learning rate of 0.01, beta1 of 0.9 and beta2 of 0.8.
+The choices for the activation functions are Relu, Tanh and Sigmoid, which are shown in the figure below.
+
+\begin{figure}[H]%
+    \centering
+    \subfloat[Relu]{{\includegraphics[width=0.2\linewidth]{images/activation_functions/relu} }}%
+    \qquad
+    \subfloat[Tanh]{{\includegraphics[width=0.2\linewidth]{images/activation_functions/tanh} }}%
+    \qquad
+    \subfloat[Sigmoid]{{\includegraphics[width=0.2\linewidth]{images/activation_functions/sigmoid} }}%
+    \caption{Activation Functions}%
+\end{figure}
+
+A few things can be attained from the above diagrams.
+The Relu function has a y range from 0 to infinity, whereas tanh is bounded between -1 and 1, and sigmoid is bounded between 0 and 1.
+This means that Relu won't be affected by the vanishing gradient problem, this is because the y range for Relu goes to Infinity, whereas the others converge. Having a non infinite range is better for gradient based methods, as it tends to be more stable.
+
+\begin{figure}[H]%
+    \centering
+    \subfloat[Relu]{{\includegraphics[width=0.7\linewidth]{images/q7_testing_relu_accuracy} }}%
+    \qquad
+    \subfloat[Tanh]{{\includegraphics[width=0.7\linewidth]{images/q7_testing_tanh_accuracy} }}%
+    \qquad
+    \subfloat[Sigmoid]{{\includegraphics[width=0.7\linewidth]{images/q7_testing_sigmoid_accuracy} }}%
+    \caption{Activation Function Accuracy}%
+\end{figure}
+
+From comparing the three graphs of accuracy, it can be seen that Relu seems to be the most stable, whereas both Tanh and Sigmoid has a lot more variation.
+
+\begin{figure}[H]%
+    \centering
+    \subfloat[Relu]{{\includegraphics[width=0.7\linewidth]{images/q7_testing_relu_cross_entropy} }}%
+    \qquad
+    \subfloat[Tanh]{{\includegraphics[width=0.7\linewidth]{images/q7_testing_tanh_cross_entropy} }}%
+    \qquad
+    \subfloat[Sigmoid]{{\includegraphics[width=0.7\linewidth]{images/q7_testing_sigmoid_cross_entropy} }}%
+    \caption{Activation Function Cross Entropy}%
+\end{figure}
+
+The cross entropy graphs show the same relationship, with Relu having the least variation per step.
+
+The Adam method with 1000 steps was tested using each activation function, which produced the following graph.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{images/q7_activation_comparison}
+\end{figure}
+
+From the above graph it can be seen that changing the activation function does not make a significant difference to the accuracy, but the sigmoid function had the best accuracy from the three.
+
+\subsection*{Q 7.2}
+
+\subsubsection*{Volume of Weight Matrices}
+
+The given convolutional network has two conv-pool layers followed by two fully connected layers.
+The MNIST dataset is being used, so the input data will be greyscale images of size 28 pixels squared,
+which can be represented as $\big[ 28 \times 28 \times 1 \big]$
+
+The first conv layer will have 32 filters, so have a size of $\big [28 \times 28 \times 32 \big]$.
+This is followed by a Relu operation but the layer size will remain the same.
+
+The pool layer will decrease the size of the layer as it is using downsampling, this can be calculated using the following formula,
+where $W$ is the input volume size, $F$ is the spacial extent and $S$ is the stride.
+
+\begin{align*}
+	size &= \frac{W - F}{S} + 1 \\
+	&= \frac{28 - 2}{1} + 1\\
+	&= 27
+\end{align*}
+
+Thus the size of the first pool layer is $\big[ 27 \times 27 \times 32 \big]$.
+
+The second conv layer will have 64 filters, so a size of $\big [27 \times 27 \times 64 \big]$.
+
+Using the equation from before the second pool layer will have a size of $\big [26 \times 26 \times 64 \big]$.
+
+The first fully connected layer will have a size of $\big [1 \times 1 \times 1024 \big]$.
+
+The second fully connected layer will have a size of $\big [1 \times 1 \times 10 \big]$.
+
+\subsubsection*{Number of Parameters}
+
+Equation for input layer:
+
+The input layer has no bias or weights
+\begin{align*}
+	params &= 0
+\end{align*}
+
+Equation for calculating the parameters of the first conv layer:
+
+\begin{align*}
+	params &= unique\ weights \times filter\ size \times filter\ size \times input\ depth + bias \\
+	&= 32 \times 3 \times 3 \times 1 + 32\\
+	&= 320
+\end{align*}
+
+Equation for first pooling layer:
+
+The pooling layers have no bias or weights
+\begin{align*}
+	params &= 0
+\end{align*}
+
+Equation for calculating the parameters of the second conv layer:
+
+\begin{align*}
+	params &= unique\ weights \times filter\ size \times filter\ size \times input\ depth + bias\\
+	&= 64 \times 3 \times 3 \times 32 + 64\\
+	&= 18,496
+\end{align*}
+
+Equation for second pooling layer:
+
+The pooling layers have no bias or weights
+\begin{align*}
+	params &= 0
+\end{align*}
+
+Equation for the first fully connected layer:
+
+\begin{align*}
+	params &= input\ height \times input\ width \times input\ depth \times depth + bias\\
+	&= 26 \times 26 \times 64 \times 1024 + 1024\\
+	&= 44,303,360
+\end{align*}
+
+Equation for the second fully connected layer:
+
+\begin{align*}
+	params &= input\ height \times input\ width \times input\ depth \times depth + bias\\
+	&= 1 \times 1 \times 1024 \times 10 + 10\\
+	&= 10,250
+\end{align*}
+
+The total number of parameters is the sum of all the individual parameters
+
+\begin{align*}
+	total &= \sum params\\
+	&= 0 + 320 + 0 + 18,496 + 0 + 44,303,360 + 10,250\\
+	&= 44,332,426
+\end{align*}
+
+\subsection*{Q 7.4}
+
+\section*{Prac 8}
+
+\subsection*{Q 8.3}
+
+
+The best result from the Q2 was found to be a polynomial kernel function with epsilon parameter of 1.
+This kernel was used with varying parameters for C, which produced the following graph
+
+\begin{figure}[H]
+	\centering
+	\caption{Performance vs Perplexity Parameter}
+	\includegraphics[width=0.7\linewidth]{../../pracs/prac8/q3}
+\end{figure}
+
+It can be seen from the graph that a perplexity of 10 produced the best performance for the given dataset.
+
+\section*{Prac 9}
+
+\subsection*{Q 9.5}
+
+\subsection*{Q 9.6}
+
+\end{document}
