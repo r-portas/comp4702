@@ -185,8 +185,39 @@ The total number of parameters is the sum of all the individual parameters
 
 \section*{Prac 8}
 
-\subsection*{Q 8.3}
+The CNN network was compared against an MLP with the same activation and optimisation function.
+In this case RMSProp was chosen with a learning parameter of 0.01 and Relu was used as the activation function.
 
+The network was tested with step sizes of 100, 300, 600, 1000 and 2000.
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Steps & MLP & CNN \\
+\hline
+100 & 0.90140003 & 0.95289999 \\
+300 & 0.90689999 & 0.97460002 \\
+600 & 0.95490003 & 0.977 \\
+1000 & 0.95230001 & 0.97970003 \\
+2000 & 0.96619999 & 0.98259997 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{images/q7_cnn_vs_mlp}
+\end{figure}
+
+From the chart it can be seen that the CNN has the best performance regardless of step size,
+performing significantly better than MLP when tested with 100 steps.
+When the step size is increased the performance becomes closer,
+thus in theory the MLP can reach similar performance with a very large step size.
+
+Its also worth nothing that the CNN network took far longer to train than the MLP.
+
+\subsection*{Q 8.3}
 
 The best result from the Q2 was found to be a polynomial kernel function with epsilon parameter of 1.
 This kernel was used with varying parameters for C, which produced the following graph
@@ -203,6 +234,59 @@ It can be seen from the graph that a perplexity of 10 produced the best performa
 
 \subsection*{Q 9.5}
 
+The methodology was adapted from the paper, the parameters are specified below
+\begin{itemize}
+	\item Results averaged over five standard 10 fold cross validation experiments
+	\item Each dataset was partitioned into 10 equal sized datasets
+	\item Each dataset is used as a test set while the classifier is trained on the other nine
+	\item Each fold has an ensemble of 25 classifiers
+	\item Neural networks trained with standard backpropagation
+	\item Neural networks trained with a learning rate of 0.15, momentum term of 0.9, random weights between -0.5 and 0.5
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Test Error Rates}
+\begin{tabular}{|c|c|}
+\hline
+Data Set & Single MLP \\
+\hline
+diabetes & 26.3 \\
+glass & 32.71 \\
+ionosphere & 8.54 \\
+sonar & 16.82 \\
+\hline
+\end{tabular}
+\end{table}
+
+The results from the table are quite similar to the paper, with the glass result having slightly smaller error than the paper.
+The diabetes and sonar results are slightly higher than what was expected from the paper.
+
 \subsection*{Q 9.6}
+
+Each test was ran 5 times with different seeds and the average error was calculated, producing the following table.
+
+\begin{table}[H]
+\centering
+\caption{Test Error Rates}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Data Set & Single MLP & Bagging & AdaBoostM1 \\
+\hline
+diabetes & 26.3 & 23.17 & 26.56 \\
+glass & 32.71 & 30.84 & 30.84 \\
+ionosphere & 8.54 & 6.83 & 8.54 \\
+sonar & 16.82 & 14.9 & 16.82 \\
+\hline
+\end{tabular}
+\end{table}
+
+The results from the experiments are similar to the record results in the paper, with most tests being around 2\% off.
+There was a few exceptions, such as the AdaBoosting for Diabetes and Sonar dataset, which has higher error rates than what was expected from the paper.
+For instance AdaBoost on the Diabetes dataset has comparable errors to a single MLP, this also occurs in the paper.
+A possible reason for this is the number of instances in each dataset, as Diabetes is one of the larger datasets
+with 768 instances.
+Most of the other datasets that were tested had 150 to 300 entries.
+
 
 \end{document}
