@@ -1,12 +1,12 @@
 \input{../include.tex}
 \usepackage{mathtools}
+\usepackage{url}
 
 \title{Assignment 3, COMP4702}
 \author{Roy Portas, 43560846}
 \date{\today}
 
-\begin{document}
-
+\begin{document} 
 \begin{titlepage}
     \maketitle
 \end{titlepage}
@@ -48,7 +48,7 @@ The choices for the activation functions are Relu, Tanh and Sigmoid, which are s
     \subfloat[Tanh]{{\includegraphics[width=0.2\linewidth]{images/activation_functions/tanh} }}%
     \qquad
     \subfloat[Sigmoid]{{\includegraphics[width=0.2\linewidth]{images/activation_functions/sigmoid} }}%
-    \caption{Activation Functions}%
+    \caption{Activation Functions, source: \protect\url{http://cs231n.github.io/neural-networks-1}}%
 \end{figure}
 
 A few things can be attained from the above diagrams.
@@ -183,7 +183,6 @@ The total number of parameters is the sum of all the individual parameters
 
 \subsection*{Q 7.4}
 
-\section*{Prac 8}
 
 The CNN network was compared against an MLP with the same activation and optimisation function.
 In this case RMSProp was chosen with a learning parameter of 0.01 and Relu was used as the activation function.
@@ -216,6 +215,8 @@ When the step size is increased the performance becomes closer,
 thus in theory the MLP can reach similar performance with a very large step size.
 
 Its also worth nothing that the CNN network took far longer to train than the MLP.
+
+\section*{Prac 8}
 
 \subsection*{Q 8.3}
 
@@ -262,9 +263,21 @@ sonar & 16.82 \\
 The results from the table are quite similar to the paper, with the glass result having slightly smaller error than the paper.
 The diabetes and sonar results are slightly higher than what was expected from the paper.
 
+\begin{figure}[H]
+	\centering
+	\caption{Number of  Attributes vs Instances vs Error}
+	\includegraphics[width=\linewidth]{images/q9_5}
+\end{figure}
+
+The above graph is a plot of the error on the number of instances and the number of attributes.
+From the graph it can be seen that there is no easily seen relationship between the data.
+
 \subsection*{Q 9.6}
 
 Each test was ran 5 times with different seeds and the average error was calculated, producing the following table.
+
+Table 1 of the paper details the parameters that should be used for the neural network,
+these parameters were put into Weka to generate the model.
 
 \begin{table}[H]
 \centering
@@ -274,19 +287,26 @@ Each test was ran 5 times with different seeds and the average error was calcula
 Data Set & Single MLP & Bagging & AdaBoostM1 \\
 \hline
 diabetes & 26.3 & 23.17 & 26.56 \\
-glass & 32.71 & 30.84 & 30.84 \\
-ionosphere & 8.54 & 6.83 & 8.54 \\
-sonar & 16.82 & 14.9 & 16.82 \\
+glass & 32.71 & 31.30 & 30.84 \\
+ionosphere & 8.54 & 9.11 & 8.54 \\
+sonar & 16.82 & 15.38 & 16.82 \\
 \hline
 \end{tabular}
 \end{table}
 
 The results from the experiments are similar to the record results in the paper, with most tests being around 2\% off.
-There was a few exceptions, such as the AdaBoosting for Diabetes and Sonar dataset, which has higher error rates than what was expected from the paper.
+There was a few exceptions, such as the AdaBoosting for Diabetes and Sonar dataset,
+which has higher error rates than what was expected from the paper.
 For instance AdaBoost on the Diabetes dataset has comparable errors to a single MLP, this also occurs in the paper.
 A possible reason for this is the number of instances in each dataset, as Diabetes is one of the larger datasets
 with 768 instances.
 Most of the other datasets that were tested had 150 to 300 entries.
 
+The results of the paper match the experiment, with the bagging method is almost always more accurate than a single MLP.
+Additionally using AdaBoost produced models which are no more accurate than a single MLP, which also matched the paper.
+More specifically the paper mentioned that boosting performance can sometimes be worse when using neural networks.
+
+The paper mentions that the performance of boosting is dependant on the data set used.
+Datasets with noisy data is more likely to be overfit by boosting.
 
 \end{document}
